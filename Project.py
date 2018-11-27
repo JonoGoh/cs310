@@ -7,20 +7,18 @@ import networkx as nx
 import matplotlib.pyplot as plt
 
 #-----Graph generation and setting parameter values-----
-nodes = 51
-NB = 3
+nodes = 10
+NB = 1
 # G = nx.circulant_graph(nodes,range(1,NB + 1))
 G = nx.complete_graph(nodes)
 
-rounds = range(10000)
+rounds = range(1)
 
 o = 4 #opportunities per round
 T = 3 #temptation to defect
 H = -1 #hurt suffered by others as a result of an agent's defection
 P = -9 #cost of being punished
 E = -2 #enforcement cost
-Pm = -9
-Em = -2
 d = 1/7 #learning step
 y = 0.01 #exploration rate
 
@@ -55,9 +53,9 @@ def interact(T,H,P,E):
                             for k in filter(lambda x: x.name != i.name, G.neighbors(j)):
                                 if random.random() < S:
                                     if random.random() < k.vengefulness:
-                                        k.PS += Em
-                                        j.POS += Pm
-
+                                        k.PS += E
+                                        j.POS += P
+                i.print_scores()
 #learning function similar to qlearn (or wolf??)
 def learn(y,d):
     for i in G.nodes():
@@ -101,7 +99,7 @@ def stats(r):
     for n in G:
         ab += n.boldness
         av += n.vengefulness
-    print('------------------------------------------------------------------------------------------------------------')
+    print('==================================================================================================')
     print('ROUND ' + str(r+1))
     # print 'number of times explored: ' + str(count)
     print('average boldness: ' + str(ab/nodes))

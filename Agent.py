@@ -30,7 +30,8 @@ class Agent:
 
     def print_scores(self):
         # self.TS += self.DS + self.PS + self.POS
-        print('id = ' + str(self.name))
+        print('-----------------------------')
+        print('AGENT id = ' + str(self.name))
         print('boldness: ', str(self.boldness))
         print('vengefulness: ', str(self.vengefulness))
         print('DS: ', str(self.DS))
